@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ijse.bookStore.dto.UpdatePasswordDTO;
@@ -17,6 +18,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepo userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public List<UserDetailsResponseDTO> getAllUsers() {
@@ -84,7 +88,7 @@ public class UserServiceImpl implements UserService{
     public UserDetailsResponseDTO updatePassword(Long id, UpdatePasswordDTO updatePasswordDTO) {
         User existingUser = getUserById(id);
         if (updatePasswordDTO.getPassword() != null){
-            existingUser.setPassword(updatePasswordDTO.getPassword());
+            existingUser.setPassword(passwordEncoder.encode(updatePasswordDTO.getPassword()));
         } else {
             throw new NoSuchElementException("Password cannot be null");
         }
