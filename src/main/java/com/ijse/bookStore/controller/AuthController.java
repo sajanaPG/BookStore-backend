@@ -48,6 +48,7 @@ public class AuthController {
         newUser.setFirstName(user.getFirstName());
         newUser.setLastName(user.getLastName());
         newUser.setPhone(user.getPhone());
+        newUser.setRole(user.getRole());
 
         userRepository.save(newUser);
         return ResponseEntity.ok(new MessageResponseDTO("User Created Successfully"));

@@ -23,18 +23,18 @@ import com.ijse.bookStore.service.UserService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/user")
+@RequestMapping
 public class UserController {
 
     @Autowired
     UserService userService; 
 
-    @GetMapping
+    @GetMapping("/admin/user")
     public ResponseEntity<List<UserDetailsResponseDTO>> getAllUsers(){
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id){
         try{
             return ResponseEntity.ok(userService.getUserById(id));
@@ -45,7 +45,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/user/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User user){
         try{
             return ResponseEntity.ok(userService.updateUser(id, user));
@@ -56,7 +56,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/{id}/password")
+    @PutMapping("/user/{id}/password")
     public ResponseEntity<?> updatePassword(@PathVariable Long id, @RequestBody UpdatePasswordDTO updatePasswordDTO){
         try{
             return ResponseEntity.ok(userService.updatePassword(id, updatePasswordDTO));
@@ -67,7 +67,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/user/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id){
         try{
             userService.deleteUser(id);

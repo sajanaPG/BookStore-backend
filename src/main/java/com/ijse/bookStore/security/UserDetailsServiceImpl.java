@@ -1,6 +1,10 @@
 package com.ijse.bookStore.security;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,15 +22,15 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         
-        User user = userRepository.findByEmail(email).orElse(null);
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(()-> new UsernameNotFoundException("User not found with given email"+email));
 
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with the given email");
-        }
+        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().name());
 
         return org.springframework.security.core.userdetails.User.builder()
             .username(user.getEmail())
             .password(user.getPassword())
+            .authorities(Collections.singletonList(authority))
             .build();
     }
 
