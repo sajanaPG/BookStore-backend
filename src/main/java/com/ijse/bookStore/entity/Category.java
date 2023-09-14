@@ -10,25 +10,16 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "books")
-public class Book {
+@Table(name = "categories")
+public class Category {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String title;
+    @Column(nullable=false, unique = true)
+    private String name;
 
-    @Column(nullable = false)
-    private String author;
-
-    @Column(nullable = false)
-    private Double price;
-
-    @Column(nullable = false)
-    private String image;
-
-    @Column(unique=false)
+    @Column(nullable = true, unique=true)
     private String description;
 }

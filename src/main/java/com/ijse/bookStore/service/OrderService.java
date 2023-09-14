@@ -10,7 +10,7 @@ import com.ijse.bookStore.entity.Order;
 public interface OrderService {
     List<Order> getAllOrders();
     Order getOrderById(Long id);
-    Order createOrder(Order foodOrder);
-    Order updateOrder(Long id, Order foodOrder);
+    Order createOrder(Order order);
+    Order updateOrder(Long id, Order order);
     void deleteOrder(Long id);
 }
