@@ -1,5 +1,7 @@
 package com.ijse.bookStore.dto;
 
+import com.ijse.bookStore.entity.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,4 +16,5 @@ public class JwtResponseDto {
     private String firstName;
     private String lastName;
     private String phone;
+    private Role role;
 }

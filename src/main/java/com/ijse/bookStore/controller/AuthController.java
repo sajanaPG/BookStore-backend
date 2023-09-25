@@ -66,7 +66,7 @@ public class AuthController {
 
         User user = userRepository.findByEmail(loginDto.getEmail()).orElse(null);
 
-        return ResponseEntity.ok(new JwtResponseDto(jwt,user.getId(),user.getEmail(),user.getFirstName(),user.getLastName(),user.getPhone()));
+        return ResponseEntity.ok(new JwtResponseDto(jwt,user.getId(),user.getEmail(),user.getFirstName(),user.getLastName(),user.getPhone(),user.getRole()));
     }
 
 }

@@ -59,13 +59,22 @@ public class WebSecurityConfig {
     }
 
     @Bean SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(cors -> cors.disable()).csrf(csrf -> csrf.disable())
+        http.cors().and().csrf(csrf -> csrf.disable())
             .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authorizeRequests ->
-                authorizeRequests.requestMatchers("/auth/***").permitAll()
+                authorizeRequests
+                .requestMatchers("/auth/***").permitAll()
                 .requestMatchers("/admin/***").hasRole("ADMIN")
-                .requestMatchers("/user/***").hasAnyRole("ADMIN", "USER")
+                .requestMatchers("/useraction/***").hasRole("USER")
+                .requestMatchers("/order/***").hasAnyRole("ADMIN", "USER")
+                .requestMatchers("/orderdetail/***").hasAnyRole("ADMIN", "USER")
+                .requestMatchers("/book/***").permitAll()
+                .requestMatchers("/book").permitAll()
+                .requestMatchers("/category/**").permitAll()
+                .requestMatchers("/category").permitAll()
+                .requestMatchers("/subcategory/***").permitAll()
+                .requestMatchers("/subcategory").permitAll()
                 .anyRequest().authenticated()
             );
 

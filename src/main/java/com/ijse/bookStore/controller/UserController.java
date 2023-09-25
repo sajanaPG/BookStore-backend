@@ -45,7 +45,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/useraction/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User user){
         try{
             return ResponseEntity.ok(userService.updateUser(id, user));
@@ -56,7 +56,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/user/{id}/password")
+    @PutMapping("/useraction/{id}/password")
     public ResponseEntity<?> updatePassword(@PathVariable Long id, @RequestBody UpdatePasswordDTO updatePasswordDTO){
         try{
             return ResponseEntity.ok(userService.updatePassword(id, updatePasswordDTO));
