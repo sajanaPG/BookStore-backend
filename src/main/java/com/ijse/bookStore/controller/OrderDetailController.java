@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ijse.bookStore.entity.OrderDetail;
+import com.ijse.bookStore.service.BookService;
 import com.ijse.bookStore.service.OrderDetailService;
 
 @RestController
@@ -26,6 +27,9 @@ public class OrderDetailController {
 
     @Autowired
     OrderDetailService orderDetailService;
+
+    @Autowired
+    BookService bookService;
 
     @GetMapping("/admin/orderdetail")
     public ResponseEntity<List<OrderDetail>> getAllOrderDetails() {
@@ -52,6 +56,7 @@ public class OrderDetailController {
     public ResponseEntity<OrderDetail> saveOrderDetail(@RequestBody OrderDetail orderDetail) {
         try {
             OrderDetail newOrderDetail = orderDetailService.createOrderDetail(orderDetail);
+            bookService.updateBookQoh(orderDetail.getBook().getId(), orderDetail.getQuantity());
             return ResponseEntity.status(HttpStatus.OK).body(newOrderDetail);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);

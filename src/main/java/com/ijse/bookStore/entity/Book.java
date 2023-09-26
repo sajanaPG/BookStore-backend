@@ -35,6 +35,9 @@ public class Book {
     @Column(unique=false)
     private String description;
 
+    @Column(nullable = true)
+    private Integer qoh;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "subcategory_id")
     private Subcategory subcategory;

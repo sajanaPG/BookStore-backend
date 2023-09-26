@@ -40,6 +40,7 @@ public class BookServiceImpl implements BookService{
         existingBook.setImage(book.getImage());
         existingBook.setDescription(book.getDescription());
         existingBook.setSubcategory(book.getSubcategory());
+        existingBook.setQoh(book.getQoh());
         return bookRepository.save(existingBook);
     }
 
@@ -51,5 +52,12 @@ public class BookServiceImpl implements BookService{
     @Override
     public List<Book> getBooksBySubcategoryId(Long subcategoryId) {
         return bookRepository.findbooksBySubcategoryId(subcategoryId);
+    }
+
+    @Override
+    public Book updateBookQoh(Long id, Integer quantity) {
+        Book existingBook = getBookById(id);
+        existingBook.setQoh(existingBook.getQoh()-quantity);
+        return bookRepository.save(existingBook);
     }
 }

@@ -14,4 +14,5 @@ public interface BookService {
     Book updateBook(Long id, Book book);
     void deleteBook(Long id);
     List<Book> getBooksBySubcategoryId(Long subcategoryId);
+    Book updateBookQoh(Long id, Integer quantity);
 }
